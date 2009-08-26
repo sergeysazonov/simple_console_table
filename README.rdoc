@@ -1,0 +1,68 @@
+# = SimpleConsoleTable - a library capable of printing nicely formatted tables to stdout
+# Copyright (C) 2009  Sergey Sazonov
+# 
+# == Example
+# === Basic example
+# 
+#   require 'rubygems'
+#   require 'simple_console_table'
+#   
+#   table = SimpleConsoleTable.new
+# 
+#   table << ['one', 'two', 'three']
+#   table << ['four', 'five', 'six', 'seven']
+#   
+#   table.as_string
+#   
+#   # +--------+--------+---------+---------+
+#   # |   one  |   two  |  three  |         |
+#   # +--------+--------+---------+---------+
+#   # |  four  |  five  |    six  |  seven  |
+#   # +--------+--------+---------+---------+
+# 
+# Use print to write the table directly to the console. Use as_string to obtain the result as a string.
+# 
+# === Using objects other than strings
+# 
+# SimpleConsoleTable invokes to_s method on every object thus converting everything to strings.
+# 
+#   class Dummy
+#     def initialize(dummy_id); @dummy_id = dummy_id; end
+#     def to_s; "Dummy #{@dummy_id}"; end
+#   end
+# 
+#   require 'rubygems'
+#   require 'simple_console_table'
+#   
+#   table = SimpleConsoleTable.new
+# 
+#   table << ['one', 2, 'three']
+#   table << [true, 'five', -6.89, Dummy.new(345)]
+# 
+#   table.as_string
+#   
+#   # +--------+--------+---------+-------------+
+#   # |   one  |     2  |  three  |             |
+#   # +--------+--------+---------+-------------+
+#   # |  true  |  five  |  -6.89  |  Dummy 345  |
+#   # +--------+--------+---------+-------------+
+# 
+# === Passing nested arrays
+# 
+# SimpleConsoleTable invokes flatten method on every array passed to <<
+# 
+#   require 'rubygems'
+#   require 'simple_console_table'
+#   
+#   table = SimpleConsoleTable.new
+# 
+#   table << [1, 2, [3, 4], [5]]
+#   table << [[[[[[6, 7, 8]]], [[[[9, 10]]]]]]]
+# 
+#   table.as_string
+#   
+#   # +-----+-----+-----+-----+------+
+#   # |  1  |  2  |  3  |  4  |   5  |
+#   # +-----+-----+-----+-----+------+
+#   # |  6  |  7  |  8  |  9  |  10  |
+#   # +-----+-----+-----+-----+------+
